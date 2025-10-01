@@ -420,3 +420,74 @@ function resetCookieConsent() {
     localStorage.removeItem('cookieConsent');
     location.reload();
 }
+
+// Sistema de traducción
+let currentLanguage = 'es';
+
+// Cargar idioma guardado
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLanguage = localStorage.getItem('language') || 'es';
+    switchLanguage(savedLanguage);
+    
+    // Event listeners para botones de idioma
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            switchLanguage(lang);
+        });
+    });
+});
+
+function switchLanguage(lang) {
+    currentLanguage = lang;
+    
+    // Actualizar botones activos
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Traducir elementos con data attributes
+    document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+        const translation = element.getAttribute('data-' + lang);
+        element.textContent = translation;
+    });
+    
+    // Traducir elementos con HTML
+    document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+        const translation = element.getAttribute('data-' + lang);
+        if (translation.includes('<')) {
+            element.innerHTML = translation;
+        }
+    });
+    
+    // Traducir placeholders de inputs
+    document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(element => {
+        const placeholder = element.getAttribute('data-placeholder-' + lang);
+        element.placeholder = placeholder;
+    });
+    
+    // Actualizar título de la página
+    if (lang === 'en') {
+        document.title = 'Maxim Esteban | Digital Marketing & Web Development';
+        document.querySelector('meta[name="description"]').setAttribute('content', 
+            'Màxim Esteban - Professional portfolio. Specialist in Digital Marketing, Frontend Web Development and UI/UX. Digital consulting services. Barcelona, Spain.');
+    } else {
+        document.title = 'Maxim Esteban | Marketing Digital & Desarrollo Web';
+        document.querySelector('meta[name="description"]').setAttribute('content', 
+            'Màxim Esteban - Portfolio profesional. Especialista en Marketing Digital, Desarrollo Web Frontend y UI/UX. Servicios de consultoría digital. Barcelona, España.');
+    }
+    
+    // Actualizar enlace del CV
+    const cvButton = document.querySelector('.btn-cv');
+    if (lang === 'en') {
+        cvButton.href = 'cv/CV_Maxim_Esteban_EN.pdf';
+    } else {
+        cvButton.href = 'cv/Maxim_Esteban_CV.pdf';
+    }
+    
+    // Guardar preferencia
+    localStorage.setItem('language', lang);
+}
