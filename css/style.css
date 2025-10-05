@@ -548,6 +548,8 @@ body {
     grid-template-columns: 1fr;
     gap: 4rem;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .about-text p {
@@ -863,6 +865,8 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .contact-item {
@@ -1480,6 +1484,8 @@ body {
     .about-content {
         grid-template-columns: 1fr;
         text-align: center;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .about-stats {
@@ -1489,6 +1495,8 @@ body {
     .contact-content {
         grid-template-columns: 1fr;
         gap: 2rem;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .skills-grid {
@@ -1537,6 +1545,27 @@ body {
     .project-card {
         min-width: auto;
         max-width: none;
+    }
+    
+    /* Asegurar que las secciones estén centradas en desktop */
+    .contact .container,
+    .about .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 100%;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        max-width: 100%;
+        text-align: center;
     }
 }
 
