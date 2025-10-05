@@ -1,18 +1,37 @@
 // Navegación móvil
 const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-menu');
+const navOverlay = document.getElementById('nav-overlay');
 
-navToggle.addEventListener('click', () => {
+function toggleMobileMenu() {
     navMenu.classList.toggle('active');
     navToggle.classList.toggle('active');
-});
+    navOverlay.classList.toggle('active');
+    document.body.classList.toggle('nav-open');
+}
+
+function closeMobileMenu() {
+    navMenu.classList.remove('active');
+    navToggle.classList.remove('active');
+    navOverlay.classList.remove('active');
+    document.body.classList.remove('nav-open');
+}
+
+navToggle.addEventListener('click', toggleMobileMenu);
+
+// Cerrar menú al hacer click en el overlay
+navOverlay.addEventListener('click', closeMobileMenu);
 
 // Cerrar menú al hacer click en un enlace
 document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    });
+    link.addEventListener('click', closeMobileMenu);
+});
+
+// Cerrar menú al presionar ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        closeMobileMenu();
+    }
 });
 
 // Navbar scroll effect
@@ -429,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedLanguage = localStorage.getItem('language') || 'es';
     switchLanguage(savedLanguage);
     
-    // Event listeners para botones de idioma
+    // Event listeners para botones de idioma (tanto navbar como flotantes)
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
@@ -480,13 +499,14 @@ function switchLanguage(lang) {
             'Màxim Esteban - Portfolio profesional. Especialista en Marketing Digital, Desarrollo Web Frontend y UI/UX. Servicios de consultoría digital. Barcelona, España.');
     }
     
-    // Actualizar enlace del CV
-    const cvButton = document.querySelector('.btn-cv');
-    if (lang === 'en') {
-        cvButton.href = 'cv/CV_Maxim_Esteban_EN.pdf';
-    } else {
-        cvButton.href = 'cv/Maxim_Esteban_CV.pdf';
-    }
+    // Actualizar enlaces del CV (tanto navbar como flotante)
+    document.querySelectorAll('.btn-cv, .floating-cv').forEach(cvButton => {
+        if (lang === 'en') {
+            cvButton.href = 'cv/CV_Maxim_Esteban_EN.pdf';
+        } else {
+            cvButton.href = 'cv/Maxim_Esteban_CV.pdf';
+        }
+    });
     
     // Guardar preferencia
     localStorage.setItem('language', lang);
