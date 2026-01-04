@@ -2133,29 +2133,34 @@ body {
 }
 
 /* CV Page Break Controls for PDF Generation */
-.cv-section,
+/* Evitar que elementos pequeños se dividan */
 .cv-experience-item,
 .cv-education-item,
-.cv-skill-column,
 .cv-job-header,
-.cv-skills-grid,
-.cv-languages-additional {
+.cv-education-header {
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
-.cv-header,
-.cv-contact {
-    page-break-after: avoid;
-    break-after: avoid;
-}
-
+/* Los títulos deben permanecer con su contenido */
 .cv-section-title {
     page-break-after: avoid;
     break-after: avoid;
-    page-break-before: auto;
 }
 
+/* Header y contacto juntos */
+.cv-header {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* Las listas de responsabilidades no deben dividirse si son cortas */
+.cv-responsibilities {
+    orphans: 3;
+    widows: 3;
+}
+
+/* Footer puede moverse libremente */
 .cv-footer {
     page-break-before: auto;
 }
