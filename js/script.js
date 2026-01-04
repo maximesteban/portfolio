@@ -142,7 +142,7 @@ document.querySelectorAll('.stat').forEach(stat => {
 
 // Formulario de contacto
 const contactForm = document.getElementById('contact-form');
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBrG3jUwLhc8IoLi31AfNFujeVqgOz_V1XTghdEsvvVKx9JTKv6GNDbvgxbPG608dSWg/exec';
+const FORMSPREE_URL = 'https://formspree.io/f/mreboroo';
 
 contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -179,25 +179,25 @@ contactForm.addEventListener('submit', async function(e) {
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Enviando...</span>';
 
     try {
-        // Crear URLSearchParams con los datos del formulario
-        const params = new URLSearchParams();
-        params.append('name', name);
-        params.append('email', email);
-        params.append('subject', subject);
-        params.append('message', message);
-
-        // Enviar datos a Google Apps Script
-        const response = await fetch(GOOGLE_SCRIPT_URL + '?' + params.toString(), {
-            method: 'GET',
-            redirect: 'follow'
+        // Enviar datos a Formspree
+        const response = await fetch(FORMSPREE_URL, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
         });
 
-        // Mostrar mensaje de éxito
-        showNotification(currentLanguage === 'es'
-            ? '¡Mensaje enviado correctamente! Te contactaré pronto.'
-            : 'Message sent successfully! I will contact you soon.', 'success');
+        if (response.ok) {
+            // Mostrar mensaje de éxito
+            showNotification(currentLanguage === 'es'
+                ? '¡Mensaje enviado correctamente! Te contactaré pronto.'
+                : 'Message sent successfully! I will contact you soon.', 'success');
 
-        this.reset();
+            this.reset();
+        } else {
+            throw new Error('Error en el envío');
+        }
 
     } catch (error) {
         console.error('Error:', error);

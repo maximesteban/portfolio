@@ -344,6 +344,14 @@ body {
     background: linear-gradient(135deg, #ff6b35, #ff9500);
 }
 
+.tag:nth-child(6) {
+    background: linear-gradient(135deg, #3553ff, #4c00ff);
+}
+
+.tag:nth-child(7) {
+    background: linear-gradient(135deg, #a20879, #ff0090);
+}
+
 .tag:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
