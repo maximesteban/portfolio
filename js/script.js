@@ -199,8 +199,8 @@ contactForm.addEventListener('submit', async function(e) {
     } catch (error) {
         console.error('Error:', error);
         showNotification(currentLanguage === 'es'
-            ? 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo o escríbeme directamente a maxim@maximesteban.com'
-            : 'There was an error sending the message. Please try again or write to me directly at maxim@maximesteban.com', 'error');
+            ? 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo o escríbeme directamente a maximestebanc@gmail.com'
+            : 'There was an error sending the message. Please try again or write to me directly at maximestebanc@gmail.com', 'error');
     } finally {
         // Restaurar botón
         submitButton.disabled = false;
