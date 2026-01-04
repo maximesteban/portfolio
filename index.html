@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maxim Esteban | Marketing Digital & Desarrollo Web</title>
-    <meta name="description" content="Màxim Esteban - Portfolio profesional. Especialista en Marketing Digital, Desarrollo Web Frontend y UI/UX. Servicios de consultoría digital. Barcelona, España.">
-    <meta name="keywords" content="marketing digital, desarrollo web, frontend, UI/UX, Barcelona, portfolio, consultoría digital">
+    <title>Màxim Esteban | Profesional Multidisciplinar</title>
+    <meta name="description" content="Profesional multidisciplinar con 9+ años en comunicación, marketing digital, desarrollo web y gestión de proyectos. Especializado en combinar creatividad, tecnología y estrategia para resultados medibles.">
+    <meta name="keywords" content="profesional multidisciplinar, marketing digital, desarrollo web, frontend, UI/UX, project management, customer success, comunicación, Barcelona, portfolio">
     <meta name="author" content="Màxim Esteban">
     <meta name="robots" content="index, follow">
     <meta name="language" content="es">
@@ -13,15 +13,15 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://maximesteban.com/">
-    <meta property="og:title" content="Màxim Esteban | Portfolio Profesional">
-    <meta property="og:description" content="Especialista en Marketing Digital y Desarrollo Web. Portfolio profesional con más de 9 años de experiencia.">
+    <meta property="og:title" content="Màxim Esteban | Profesional Multidisciplinar">
+    <meta property="og:description" content="Profesional multidisciplinar con 9+ años en comunicación, marketing digital, desarrollo web y gestión de proyectos. Combino creatividad, tecnología y estrategia.">
     <meta property="og:locale" content="es_ES">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://maximesteban.com/">
-    <meta property="twitter:title" content="Màxim Esteban | Portfolio Profesional">
-    <meta property="twitter:description" content="Especialista en Marketing Digital y Desarrollo Web. Portfolio profesional con más de 9 años de experiencia.">
+    <meta property="twitter:title" content="Màxim Esteban | Profesional Multidisciplinar">
+    <meta property="twitter:description" content="Profesional multidisciplinar con 9+ años en comunicación, marketing digital, desarrollo web y gestión de proyectos. Combino creatividad, tecnología y estrategia.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -41,7 +41,10 @@
     
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    
+
+    <!-- html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -82,7 +85,7 @@
                         <span>EN</span>
                     </button>
                 </div>
-                <a href="cv/Maxim_Esteban_CV.pdf" target="_blank" class="btn btn-cv" download>
+                <a href="#" onclick="generateCV(); return false;" class="btn btn-cv">
                     <i class="fas fa-download"></i>
                     <span class="cv-text" data-es="Descargar CV" data-en="Download CV">Descargar CV</span>
                 </a>
@@ -110,7 +113,7 @@
                 <span>EN</span>
             </button>
         </div>
-        <a href="cv/Maxim_Esteban_CV.pdf" target="_blank" class="floating-cv" download>
+        <a href="#" onclick="generateCV(); return false;" class="floating-cv">
             <i class="fas fa-download"></i>
             <span class="cv-text" data-es="CV" data-en="CV">CV</span>
         </a>
@@ -163,10 +166,10 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p data-es="<strong>Profesional en Comunicación,Marketing Digital y Desarrollo Web</strong> con 9 años de experiencia transformando ideas en resultados medibles. Mi background deportivo de élite me aporta una mentalidad competitiva y capacidad de trabajo bajo presión que aplico en cada proyecto." data-en="<strong>Professional in Communication, Digital Marketing and Web Development</strong> with 9 years of experience transforming ideas into measurable results. My elite sports background gives me a competitive mindset and ability to work under pressure that I apply to every project.">
-                        <strong>Profesional en Comunicación,Marketing Digital y Desarrollo Web</strong> con 9 años de experiencia 
-                        transformando ideas en resultados medibles. Mi background deportivo de élite me aporta una mentalidad 
-                        competitiva y capacidad de trabajo bajo presión que aplico en cada proyecto.
+                    <p data-es="<strong>Profesional multidisciplinar</strong> con 9 años de experiencia combinando comunicación, marketing digital, desarrollo web y gestión de proyectos. Mi background deportivo de élite me aporta una mentalidad competitiva y capacidad de trabajo bajo presión que aplico en cada proyecto." data-en="<strong>Multidisciplinary professional</strong> with 9 years of experience combining communication, digital marketing, web development and project management. My elite sports background gives me a competitive mindset and ability to work under pressure that I apply to every project.">
+                        <strong>Profesional multidisciplinar</strong> con 9 años de experiencia combinando comunicación,
+                        marketing digital, desarrollo web y gestión de proyectos. Mi background deportivo de élite me aporta
+                        una mentalidad competitiva y capacidad de trabajo bajo presión que aplico en cada proyecto.
                     </p>
                     <p data-es="<strong>Expertise técnico y creativo:</strong> Desarrollo frontend (HTML5, CSS3, JavaScript, WordPress), diseño UI/UX con Figma, estrategias de marketing digital que aumentan conversiones, gestión completa de proyectos desde la conceptualización hasta el lanzamiento, y customer success enfocado en retención y satisfacción del cliente." data-en="<strong>Technical and creative expertise:</strong> Frontend development (HTML5, CSS3, JavaScript, WordPress), UI/UX design with Figma, digital marketing strategies that increase conversions, complete project management from conceptualization to launch, and customer success focused on retention and client satisfaction.">
                         <strong>Expertise técnico y creativo:</strong> Desarrollo frontend (HTML5, CSS3, JavaScript, WordPress),
@@ -178,10 +181,18 @@
                         co-fundador de agencia especializada en marketing deportivo, y en entornos startup donde combino desarrollo frontend, customer success y estrategia digital.
                     </p>
                     <p data-es="<strong>Ventaja competitiva:</strong> Soy el puente perfecto entre equipos técnicos y comerciales. Hablo el lenguaje de desarrolladores, diseñadores y marketers, lo que me permite liderar proyectos multidisciplinares y entregar soluciones completas que realmente funcionan." data-en="<strong>Competitive advantage:</strong> I'm the perfect bridge between technical and commercial teams. I speak the language of developers, designers and marketers, which allows me to lead multidisciplinary projects and deliver complete solutions that really work.">
-                        <strong>Ventaja competitiva:</strong> Soy el puente perfecto entre equipos técnicos y comerciales. 
-                        Hablo el lenguaje de desarrolladores, diseñadores y marketers, lo que me permite liderar proyectos 
+                        <strong>Ventaja competitiva:</strong> Soy el puente perfecto entre equipos técnicos y comerciales.
+                        Hablo el lenguaje de desarrolladores, diseñadores y marketers, lo que me permite liderar proyectos
                         multidisciplinares y entregar soluciones completas que realmente funcionan.
                     </p>
+
+                    <div class="sports-cta">
+                        <a href="#" onclick="openModal('sports-modal'); return false;" class="sports-link">
+                            <i class="fas fa-basketball-ball"></i>
+                            <span data-es="Descubre cómo mi carrera deportiva formó mi mentalidad profesional" data-en="Discover how my sports career shaped my professional mindset">Descubre cómo mi carrera deportiva formó mi mentalidad profesional</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                     <div class="about-stats">
                         <div class="stat">
                             <span class="stat-number">9+</span>
@@ -790,6 +801,454 @@
 
                 <h3>Enlaces externos</h3>
                 <p>Este sitio web puede contener enlaces a terceros. Màxim Esteban no se responsabiliza del contenido de dichos sitios web externos.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sports Journey Modal -->
+    <div id="sports-modal" class="legal-modal">
+        <div class="modal-content sports-modal-content">
+            <div class="modal-header">
+                <h2 data-es="Mi Trayectoria Deportiva" data-en="My Sports Journey">Mi Trayectoria Deportiva</h2>
+                <button onclick="closeModal('sports-modal')" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sports-intro">
+                    <p data-es="El baloncesto ha sido mi escuela de vida. Desde los 8 años en las categorías inferiores del FC Barcelona hasta mi carrera profesional actual, el deporte me ha enseñado disciplina, resiliencia y trabajo en equipo." data-en="Basketball has been my school of life. From age 8 in FC Barcelona's youth categories to my current professional career, sports has taught me discipline, resilience and teamwork.">
+                        El baloncesto ha sido mi escuela de vida. Desde los 8 años en las categorías inferiores del FC Barcelona hasta mi carrera profesional actual, el deporte me ha enseñado disciplina, resiliencia y trabajo en equipo.
+                    </p>
+                    <p data-es="Esta trayectoria deportiva fue el punto de partida de un viaje multidisciplinar que me llevó del deporte al emprendimiento, la música, y la innovación tecnológica." data-en="This sports journey was the starting point of a multidisciplinary journey that took me from sports to entrepreneurship, music, and technological innovation.">
+                        Esta trayectoria deportiva fue el punto de partida de un viaje multidisciplinar que me llevó del deporte al emprendimiento, la música, y la innovación tecnológica.
+                    </p>
+                </div>
+
+                <!-- Professional Journey Timeline -->
+                <div class="journey-section">
+                    <h3 class="journey-title" data-es="Mi Trayectoria Completa" data-en="My Complete Journey">Mi Trayectoria Completa</h3>
+                    <p class="journey-intro" data-es="Del deporte de élite al emprendimiento y la innovación tecnológica" data-en="From elite sports to entrepreneurship and technological innovation">
+                        Del deporte de élite al emprendimiento y la innovación tecnológica
+                    </p>
+
+                    <div class="journey-timeline">
+                        <!-- Basketball Career -->
+                        <div class="journey-milestone">
+                            <div class="milestone-icon">
+                                <i class="fas fa-basketball-ball"></i>
+                            </div>
+                            <div class="milestone-content">
+                                <h4 class="milestone-title" data-es="Carrera Deportiva de Élite" data-en="Elite Sports Career">Carrera Deportiva de Élite</h4>
+                                <span class="milestone-period">2006 - Presente</span>
+                                <p class="milestone-description" data-es="10 años en las categorías inferiores del FC Barcelona (La Masia). 2x Campeón de España. Selección Española. Actualmente jugador profesional en CBI Elche." data-en="10 years in FC Barcelona's youth academy (La Masia). 2x Spanish Champion. Spanish National Team. Currently professional player at CBI Elche.">
+                                    10 años en las categorías inferiores del FC Barcelona (La Masia). 2x Campeón de España. Selección Española. Actualmente jugador profesional en CBI Elche.
+                                </p>
+                                <div class="milestone-links">
+                                    <a href="https://es.wikipedia.org/wiki/M%C3%A0xim_Esteban" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        <span data-es="Wikipedia" data-en="Wikipedia">Wikipedia</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- X BY MAXIM -->
+                        <div class="journey-milestone">
+                            <div class="milestone-icon">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <div class="milestone-content">
+                                <h4 class="milestone-title" data-es="X BY MAXIM - Marca Personal" data-en="X BY MAXIM - Personal Brand">X BY MAXIM - Marca Personal</h4>
+                                <span class="milestone-period">2016 - 2019</span>
+                                <p class="milestone-description" data-es="Proyecto de marca personal que combinaba música y moda. Primera incursión en el mundo del emprendimiento y la comunicación digital." data-en="Personal brand project combining music and fashion. First foray into the world of entrepreneurship and digital communication.">
+                                    Proyecto de marca personal que combinaba música y moda. Primera incursión en el mundo del emprendimiento y la comunicación digital.
+                                </p>
+                                <div class="milestone-links">
+                                    <a href="https://www.instagram.com/maximesteban/" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>Instagram</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Musical Project -->
+                        <div class="journey-milestone journey-milestone-creative">
+                            <div class="milestone-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="milestone-content">
+                                <h4 class="milestone-title" data-es="Producción Musical & Creación Artística" data-en="Music Production & Artistic Creation">Producción Musical & Creación Artística</h4>
+                                <span class="milestone-period">2017 - 2020</span>
+                                <p class="milestone-description" data-es="Exploración de mi faceta creativa a través de la producción musical. Formación profesional en CPA SALDUIE donde desarrollé habilidades técnicas y artísticas que complementan mi perfil multidisciplinar." data-en="Exploration of my creative side through music production. Professional training at CPA SALDUIE where I developed technical and artistic skills that complement my multidisciplinary profile.">
+                                    Exploración de mi faceta creativa a través de la producción musical. Formación profesional en CPA SALDUIE donde desarrollé habilidades técnicas y artísticas que complementan mi perfil multidisciplinar.
+                                </p>
+                                <div class="milestone-tags">
+                                    <span class="skill-badge" data-es="Producción Musical" data-en="Music Production">Producción Musical</span>
+                                    <span class="skill-badge" data-es="Composición" data-en="Composition">Composición</span>
+                                    <span class="skill-badge" data-es="Diseño Sonoro" data-en="Sound Design">Diseño Sonoro</span>
+                                    <span class="skill-badge" data-es="Audio Engineering" data-en="Audio Engineering">Audio Engineering</span>
+                                </div>
+                                <blockquote class="milestone-quote milestone-quote-creative" data-es="&quot;La música me enseñó que la creatividad no tiene límites. Cada proyecto es una oportunidad para fusionar arte, tecnología y emoción.&quot;" data-en="&quot;Music taught me that creativity has no limits. Every project is an opportunity to merge art, technology and emotion.&quot;">
+                                    "La música me enseñó que la creatividad no tiene límites. Cada proyecto es una oportunidad para fusionar arte, tecnología y emoción."
+                                </blockquote>
+                                <div class="milestone-links">
+                                    <a href="https://www.instagram.com/maximesteban/" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>Instagram</span>
+                                    </a>
+                                    <a href="https://soundcloud.com/maximesteban" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fab fa-soundcloud"></i>
+                                        <span>SoundCloud</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HIPE Agency -->
+                        <div class="journey-milestone journey-milestone-featured">
+                            <div class="milestone-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="milestone-content">
+                                <h4 class="milestone-title" data-es="HIPE Agency - Co-fundador" data-en="HIPE Agency - Co-founder">HIPE Agency - Co-fundador</h4>
+                                <span class="milestone-period">2019 - 2024</span>
+                                <p class="milestone-description" data-es="Agencia de comunicación deportiva nacida de la pasión por crear. Un espacio para soñadores, creadores y personas que quieren dejar huella en el mundo del deporte." data-en="Sports communication agency born from the passion to create. A space for dreamers, creators and people who want to make a mark in the world of sports.">
+                                    Agencia de comunicación deportiva nacida de la pasión por crear. Un espacio para soñadores, creadores y personas que quieren dejar huella en el mundo del deporte.
+                                </p>
+                                <blockquote class="milestone-quote" data-es="&quot;Nuestro sueño y objetivo siempre ha sido claro: crear un espacio donde todos esos soñadores, creadores y personas que buscan dejar su huella tengan las herramientas y el apoyo necesario para alcanzar sus sueños.&quot;" data-en="&quot;Our dream and goal has always been clear: create a space where all those dreamers, creators and people looking to leave their mark have the tools and support needed to achieve their dreams.&quot;">
+                                    "Nuestro sueño y objetivo siempre ha sido claro: crear un espacio donde todos esos soñadores, creadores y personas que buscan dejar su huella tengan las herramientas y el apoyo necesario para alcanzar sus sueños."
+                                </blockquote>
+                                <div class="milestone-links">
+                                    <a href="https://hipeagency.es/" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fas fa-globe"></i>
+                                        <span>hipeagency.es</span>
+                                    </a>
+                                    <a href="https://www.instagram.com/hipe_agency/" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>Instagram</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Placenet -->
+                        <div class="journey-milestone journey-milestone-current">
+                            <div class="milestone-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="milestone-content">
+                                <h4 class="milestone-title" data-es="Placenet - Operation Head & Customer Success" data-en="Placenet - Operation Head & Customer Success">Placenet - Operation Head & Customer Success</h4>
+                                <span class="milestone-period" data-es="Octubre 2024 - Actualidad" data-en="October 2024 - Present">Octubre 2024 - Actualidad</span>
+                                <p class="milestone-description" data-es="Internet of Places. Liderando operaciones y customer success en una startup tecnológica que revoluciona la forma en que las personas interactúan con los espacios físicos." data-en="Internet of Places. Leading operations and customer success at a tech startup revolutionizing how people interact with physical spaces.">
+                                    Internet of Places. Liderando operaciones y customer success en una startup tecnológica que revoluciona la forma en que las personas interactúan con los espacios físicos.
+                                </p>
+                                <div class="milestone-links">
+                                    <a href="https://placenet.app" target="_blank" rel="noopener" class="milestone-link">
+                                        <i class="fas fa-globe"></i>
+                                        <span>placenet.app</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-divider" data-es="Mi Carrera Deportiva en Detalle" data-en="My Sports Career in Detail">Mi Carrera Deportiva en Detalle</h3>
+
+                <div class="sports-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2006 - 2016</div>
+                        <h3 data-es="FC Barcelona - La Masia" data-en="FC Barcelona - La Masia">FC Barcelona - La Masia</h3>
+                        <ul>
+                            <li data-es="10 años formándome en las categorías inferiores del FC Barcelona" data-en="10 years training in FC Barcelona's youth categories">10 años formándome en las categorías inferiores del FC Barcelona</li>
+                            <li data-es="2x Campeón de España Cadete con FC Barcelona" data-en="2x Spanish Cadet Champion with FC Barcelona">2x Campeón de España Cadete con FC Barcelona</li>
+                            <li data-es="Subcampeón con la Selección Española en BAM 2012" data-en="Runner-up with Spanish National Team at BAM 2012">Subcampeón con la Selección Española en BAM 2012</li>
+                            <li data-es="Subcampeón en el Torneo de la Amistad 2013 con España" data-en="Runner-up at Tournament of Friendship 2013 with Spain">Subcampeón en el Torneo de la Amistad 2013 con España</li>
+                            <li data-es="Participación con España U16 en el Campeonato Europeo 2014" data-en="Participation with Spain U16 at European Championship 2014">Participación con España U16 en el Campeonato Europeo 2014</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2016 - 2017</div>
+                        <h3 data-es="FC Barcelona B - LEB Oro" data-en="FC Barcelona B - LEB Oro">FC Barcelona B - LEB Oro</h3>
+                        <ul>
+                            <li data-es="Debut profesional con el filial del FC Barcelona" data-en="Professional debut with FC Barcelona B">Debut profesional con el filial del FC Barcelona</li>
+                            <li data-es="Apariciones con el primer equipo en Liga ACB" data-en="Appearances with first team in Liga ACB">Apariciones con el primer equipo en Liga ACB</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019 - 2020</div>
+                        <h3 data-es="Bàsquet Girona - LEB Plata" data-en="Bàsquet Girona - LEB Plata">Bàsquet Girona - LEB Plata</h3>
+                        <ul>
+                            <li data-es="Experiencia internacional en la liga española" data-en="International experience in Spanish league">Experiencia en liga profesional española</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <h3 data-es="Umeå - Liga Sueca" data-en="Umeå - Swedish League">Umeå - Liga Sueca</h3>
+                        <ul>
+                            <li data-es="Experiencia internacional en Suecia" data-en="International experience in Sweden">Experiencia internacional en Suecia</li>
+                            <li data-es="Récord personal: 23 puntos en un partido (23 de eficiencia)" data-en="Career high: 23 points in a game (23 efficiency)">Récord personal: 23 puntos en un partido (23 de eficiencia)</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021 - Actualidad</div>
+                        <h3 data-es="Carrera Profesional Activa" data-en="Active Professional Career">Carrera Profesional Activa</h3>
+                        <ul>
+                            <li data-es="Experiencia en LEB Plata / Segunda FEB" data-en="Experience in LEB Plata / Segunda FEB">Experiencia en LEB Plata / Segunda FEB</li>
+                            <li data-es="CB L'Hospitalet - Tercera FEB" data-en="CB L'Hospitalet - Tercera FEB">CB L'Hospitalet - Tercera FEB</li>
+                            <li data-es="CBI Elche - Actualmente" data-en="CBI Elche - Currently">CBI Elche - Actualmente</li>
+                            <li data-es="Licencia de Entrenador Nacional Nivel 1 (2024)" data-en="National Coach License Level 1 (2024)">Licencia de Entrenador Nacional Nivel 1 (2024)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sports-values">
+                    <h3 data-es="Lo que el deporte me enseñó" data-en="What sports taught me">Lo que el deporte me enseñó</h3>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <i class="fas fa-trophy"></i>
+                            <h4 data-es="Mentalidad Competitiva" data-en="Competitive Mindset">Mentalidad Competitiva</h4>
+                            <p data-es="Orientación a resultados y mejora continua" data-en="Results-oriented and continuous improvement">Orientación a resultados y mejora continua</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-users"></i>
+                            <h4 data-es="Trabajo en Equipo" data-en="Teamwork">Trabajo en Equipo</h4>
+                            <p data-es="Colaboración y liderazgo en entornos de alta presión" data-en="Collaboration and leadership in high-pressure environments">Colaboración y liderazgo en entornos de alta presión</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-brain"></i>
+                            <h4 data-es="Disciplina" data-en="Discipline">Disciplina</h4>
+                            <p data-es="Constancia y dedicación para alcanzar objetivos" data-en="Consistency and dedication to achieve goals">Constancia y dedicación para alcanzar objetivos</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-fire"></i>
+                            <h4 data-es="Resiliencia" data-en="Resilience">Resiliencia</h4>
+                            <p data-es="Capacidad de superar adversidades y aprender de los fracasos" data-en="Ability to overcome adversity and learn from failures">Capacidad de superar adversidades y aprender de los fracasos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV Template (Hidden - Used for PDF generation) -->
+    <div id="cv-template" style="display: none;">
+        <div class="cv-container">
+            <div class="cv-header">
+                <h1>Màxim Esteban Calvo</h1>
+                <p class="cv-tagline" data-es="Profesional Multidisciplinar" data-en="Multidisciplinary Professional">Profesional Multidisciplinar</p>
+            </div>
+
+            <div class="cv-contact">
+                <div class="cv-contact-item">
+                    <i class="fas fa-envelope"></i> <a href="mailto:maximestebanc@gmail.com" class="cv-link">maximestebanc@gmail.com</a>
+                </div>
+                <div class="cv-contact-item">
+                    <i class="fas fa-phone"></i> <a href="tel:+34623173898" class="cv-link">+34 623 17 38 98</a>
+                </div>
+                <div class="cv-contact-item">
+                    <i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/maximesteban" class="cv-link">linkedin.com/in/maximesteban</a>
+                </div>
+                <div class="cv-contact-item">
+                    <i class="fab fa-github"></i> <a href="https://github.com/maximesteban" class="cv-link">github.com/maximesteban</a>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title" data-es="Perfil Profesional" data-en="Professional Profile">Perfil Profesional</h2>
+                <p class="cv-text" data-es="Profesional multidisciplinar con 9 años de experiencia combinando comunicación, marketing digital, desarrollo web y gestión de proyectos. Background deportivo de élite que aporta mentalidad competitiva y capacidad de trabajo bajo presión. Especializado en combinar creatividad, tecnología y estrategia para entregar resultados medibles." data-en="Multidisciplinary professional with 9 years of experience combining communication, digital marketing, web development and project management. Elite sports background that provides competitive mindset and ability to work under pressure. Specialized in combining creativity, technology and strategy to deliver measurable results.">
+                    Profesional multidisciplinar con 9 años de experiencia combinando comunicación, marketing digital, desarrollo web y gestión de proyectos. Background deportivo de élite que aporta mentalidad competitiva y capacidad de trabajo bajo presión. Especializado en combinar creatividad, tecnología y estrategia para entregar resultados medibles.
+                </p>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title" data-es="Habilidades Clave" data-en="Key Skills">Habilidades Clave</h2>
+                <div class="cv-skills-grid">
+                    <div class="cv-skill-column">
+                        <h3 class="cv-skill-category" data-es="Marketing Digital" data-en="Digital Marketing">Marketing Digital</h3>
+                        <ul class="cv-skill-list">
+                            <li>Google Ads & Analytics</li>
+                            <li>Meta Ads (Facebook/Instagram)</li>
+                            <li>SEO & SEM</li>
+                            <li>Email Marketing</li>
+                            <li>Content Marketing</li>
+                        </ul>
+                    </div>
+                    <div class="cv-skill-column">
+                        <h3 class="cv-skill-category" data-es="Desarrollo Web" data-en="Web Development">Desarrollo Web</h3>
+                        <ul class="cv-skill-list">
+                            <li>HTML5, CSS3, JavaScript</li>
+                            <li>WordPress & Elementor</li>
+                            <li>UI/UX Design (Figma)</li>
+                            <li>Responsive Design</li>
+                            <li>Git & GitHub</li>
+                        </ul>
+                    </div>
+                    <div class="cv-skill-column">
+                        <h3 class="cv-skill-category" data-es="Comunicación y Diseño" data-en="Communication & Design">Comunicación y Diseño</h3>
+                        <ul class="cv-skill-list">
+                            <li data-es="Estrategia de Comunicación" data-en="Communication Strategy">Estrategia de Comunicación</li>
+                            <li data-es="Creación de Contenido" data-en="Content Creation">Creación de Contenido</li>
+                            <li data-es="Diseño Gráfico" data-en="Graphic Design">Diseño Gráfico</li>
+                            <li data-es="Gestión de Redes Sociales" data-en="Social Media Management">Gestión de Redes Sociales</li>
+                            <li data-es="Relaciones Públicas" data-en="Public Relations">Relaciones Públicas</li>
+                        </ul>
+                    </div>
+                    <div class="cv-skill-column">
+                        <h3 class="cv-skill-category" data-es="Gestión de Proyectos" data-en="Project Management">Gestión de Proyectos</h3>
+                        <ul class="cv-skill-list">
+                            <li data-es="Gestión Operativa" data-en="Operations Management">Gestión Operativa</li>
+                            <li data-es="Planificación de Proyectos" data-en="Project Planning">Planificación de Proyectos</li>
+                            <li>Onboarding & Training</li>
+                            <li>KPIs & Reporting</li>
+                            <li>Customer Success</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title" data-es="Experiencia Profesional" data-en="Professional Experience">Experiencia Profesional</h2>
+
+                <div class="cv-experience-item">
+                    <div class="cv-job-header">
+                        <h3 class="cv-job-title">Operation Head & Customer Success</h3>
+                        <span class="cv-job-date" data-es="Octubre 2024 - Actualidad" data-en="October 2024 - Present">Octubre 2024 - Actualidad</span>
+                    </div>
+                    <p class="cv-company">Placenet - Internet of Places (Startup tecnológica)</p>
+                    <ul class="cv-responsibilities">
+                        <li data-es="Dirección de operaciones y optimización de procesos internos" data-en="Operations management and internal process optimization">Dirección de operaciones y optimización de procesos internos</li>
+                        <li data-es="Customer success, onboarding y retención de usuarios" data-en="Customer success, onboarding and user retention">Customer success, onboarding y retención de usuarios</li>
+                        <li data-es="Gestión de KPIs, reporting y análisis de métricas operacionales" data-en="KPI management, reporting and operational metrics analysis">Gestión de KPIs, reporting y análisis de métricas operacionales</li>
+                        <li data-es="Coordinación entre equipos técnicos y comerciales" data-en="Coordination between technical and commercial teams">Coordinación entre equipos técnicos y comerciales</li>
+                    </ul>
+                </div>
+
+                <div class="cv-experience-item">
+                    <div class="cv-job-header">
+                        <h3 class="cv-job-title">Communication, Content & Talent Manager</h3>
+                        <span class="cv-job-date" data-es="Agosto 2023 - Octubre 2024" data-en="August 2023 - October 2024">Agosto 2023 - Octubre 2024</span>
+                    </div>
+                    <p class="cv-company">Placenet - Internet of Places (Startup tecnológica)</p>
+                    <ul class="cv-responsibilities">
+                        <li data-es="Gestión de comunicación corporativa y creación de contenido digital" data-en="Corporate communication management and digital content creation">Gestión de comunicación corporativa y creación de contenido digital</li>
+                        <li data-es="Coordinación de talento, embajadores y relaciones públicas" data-en="Talent coordination, ambassadors and public relations">Coordinación de talento, embajadores y relaciones públicas</li>
+                        <li data-es="Desarrollo web completo y diseño UI/UX de la app" data-en="Complete web development and app UI/UX design">Desarrollo web completo y diseño UI/UX de la app</li>
+                        <li data-es="Desarrollo y ejecución de estrategias de marca y posicionamiento" data-en="Brand and positioning strategy development and execution">Desarrollo y ejecución de estrategias de marca y posicionamiento</li>
+                    </ul>
+                </div>
+
+                <div class="cv-experience-item">
+                    <div class="cv-job-header">
+                        <h3 class="cv-job-title" data-es="Director de Marketing" data-en="Marketing Director">Director de Marketing</h3>
+                        <span class="cv-job-date">2022 - 2024</span>
+                    </div>
+                    <p class="cv-company">CBI Elche</p>
+                    <ul class="cv-responsibilities">
+                        <li data-es="Diseño y dirección de estrategia de marketing y comunicación del club" data-en="Design and direction of club marketing and communication strategy">Diseño y dirección de estrategia de marketing y comunicación del club</li>
+                        <li data-es="Gestión de redes sociales, imagen corporativa y relaciones con patrocinadores" data-en="Social media management, corporate image and sponsor relations">Gestión de redes sociales, imagen corporativa y relaciones con patrocinadores</li>
+                        <li data-es="Coordinación de campañas de comunicación y eventos" data-en="Communication campaigns and events coordination">Coordinación de campañas de comunicación y eventos</li>
+                    </ul>
+                </div>
+
+                <div class="cv-experience-item">
+                    <div class="cv-job-header">
+                        <h3 class="cv-job-title" data-es="Co-fundador y Director" data-en="Co-founder and Director">Co-fundador y Director</h3>
+                        <span class="cv-job-date">2022 - 2024</span>
+                    </div>
+                    <p class="cv-company">HIPE Basketball & HIPE Agency</p>
+                    <ul class="cv-responsibilities">
+                        <li data-es="Fundador de agencia de eventos deportivos y representación de talentos" data-en="Founder of sports events agency and talent representation">Fundador de agencia de eventos deportivos y representación de talentos</li>
+                        <li data-es="Dirección de marketing, comunicación y estrategia de crecimiento" data-en="Marketing direction, communication and growth strategy">Dirección de marketing, comunicación y estrategia de crecimiento</li>
+                        <li data-es="Gestión integral de clubes y eventos deportivos" data-en="Comprehensive management of clubs and sports events">Gestión integral de clubes y eventos deportivos</li>
+                    </ul>
+                </div>
+
+                <div class="cv-experience-item">
+                    <div class="cv-job-header">
+                        <h3 class="cv-job-title" data-es="Prácticas en Comunicación" data-en="Communication Internship">Prácticas en Comunicación</h3>
+                        <span class="cv-job-date">2022 - 2023</span>
+                    </div>
+                    <p class="cv-company">CB Benicarló</p>
+                    <ul class="cv-responsibilities">
+                        <li data-es="Creación de contenido gráfico y audiovisual" data-en="Graphic and audiovisual content creation">Creación de contenido gráfico y audiovisual</li>
+                        <li data-es="Redacción de notas de prensa y comunicación corporativa" data-en="Press release writing and corporate communication">Redacción de notas de prensa y comunicación corporativa</li>
+                    </ul>
+                </div>
+
+                <div class="cv-experience-item">
+                    <div class="cv-job-header">
+                        <h3 class="cv-job-title" data-es="Jugador Profesional de Baloncesto" data-en="Professional Basketball Player">Jugador Profesional de Baloncesto</h3>
+                        <span class="cv-job-date" data-es="2016 - Actualidad" data-en="2016 - Present">2016 - Actualidad</span>
+                    </div>
+                    <p class="cv-company" data-es="Diferentes clubes profesionales" data-en="Various professional clubs">Diferentes clubes profesionales</p>
+                    <ul class="cv-responsibilities">
+                        <li data-es="Liderazgo, trabajo en equipo y gestión de la presión" data-en="Leadership, teamwork and pressure management">Liderazgo, trabajo en equipo y gestión de la presión</li>
+                        <li data-es="Disciplina, competitividad y orientación a resultados" data-en="Discipline, competitiveness and results orientation">Disciplina, competitividad y orientación a resultados</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title" data-es="Formación Académica" data-en="Education">Formación Académica</h2>
+
+                <div class="cv-education-item">
+                    <div class="cv-education-header">
+                        <h3 class="cv-degree" data-es="Ciclo Formativo de Grado Superior, Marketing y Publicidad" data-en="Higher Vocational Training, Marketing and Advertising">Ciclo Formativo de Grado Superior, Marketing y Publicidad</h3>
+                        <span class="cv-year">2021 - 2023</span>
+                    </div>
+                    <p class="cv-institution">UOC X - Xtended Studies</p>
+                </div>
+
+                <div class="cv-education-item">
+                    <div class="cv-education-header">
+                        <h3 class="cv-degree" data-es="Programa +QESPORT" data-en="+QESPORT Program">Programa +QESPORT</h3>
+                        <span class="cv-year">2019</span>
+                    </div>
+                    <p class="cv-institution">ESERP Business & Law School</p>
+                </div>
+
+                <div class="cv-education-item">
+                    <div class="cv-education-header">
+                        <h3 class="cv-degree" data-es="Productor Musical, Música" data-en="Music Producer, Music">Productor Musical, Música</h3>
+                        <span class="cv-year">2019</span>
+                    </div>
+                    <p class="cv-institution">CPA SALDUIE</p>
+                </div>
+
+                <div class="cv-education-item">
+                    <div class="cv-education-header">
+                        <h3 class="cv-degree" data-es="Eines de Comunicació Per a Ser Professional" data-en="Communication Tools to Be a Professional">Eines de Comunicació Per a Ser Professional</h3>
+                        <span class="cv-year">2018</span>
+                    </div>
+                    <p class="cv-institution" data-es="Futbol Club Barcelona - Comunicación digital y contenidos multimedia" data-en="FC Barcelona - Digital communication and multimedia content">Futbol Club Barcelona - Comunicación digital y contenidos multimedia</p>
+                </div>
+            </div>
+
+            <div class="cv-section cv-languages-additional">
+                <div class="cv-column-half">
+                    <h2 class="cv-section-title" data-es="Idiomas" data-en="Languages">Idiomas</h2>
+                    <ul class="cv-language-list">
+                        <li><strong data-es="Español" data-en="Spanish">Español</strong>: <span data-es="Nativo" data-en="Native">Nativo</span></li>
+                        <li><strong data-es="Catalán" data-en="Catalan">Catalán</strong>: <span data-es="Nativo" data-en="Native">Nativo</span></li>
+                        <li><strong data-es="Inglés" data-en="English">Inglés</strong>: <span data-es="Profesional" data-en="Professional">Profesional</span></li>
+                    </ul>
+                </div>
+                <div class="cv-column-half">
+                    <h2 class="cv-section-title" data-es="Información Adicional" data-en="Additional Information">Información Adicional</h2>
+                    <ul class="cv-additional-list">
+                        <li data-es="Carnet de conducir: B" data-en="Driving license: B">Carnet de conducir: B</li>
+                        <li data-es="Disponibilidad para trabajo remoto" data-en="Available for remote work">Disponibilidad para trabajo remoto</li>
+                        <li data-es="Dispuesto a relocalización" data-en="Willing to relocate">Dispuesto a relocalización</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-footer">
+                <p class="cv-footer-text" data-es="Generado desde maximesteban.com" data-en="Generated from maximesteban.com">Generado desde maximesteban.com</p>
             </div>
         </div>
     </div>

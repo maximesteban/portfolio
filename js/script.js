@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function switchLanguage(lang) {
     currentLanguage = lang;
-    
+
     // Actualizar botones activos
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -509,13 +509,13 @@ function switchLanguage(lang) {
             btn.classList.add('active');
         }
     });
-    
+
     // Traducir elementos con data attributes
     document.querySelectorAll('[data-' + lang + ']').forEach(element => {
         const translation = element.getAttribute('data-' + lang);
         element.textContent = translation;
     });
-    
+
     // Traducir elementos con HTML
     document.querySelectorAll('[data-' + lang + ']').forEach(element => {
         const translation = element.getAttribute('data-' + lang);
@@ -523,33 +523,283 @@ function switchLanguage(lang) {
             element.innerHTML = translation;
         }
     });
-    
+
     // Traducir placeholders de inputs
     document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(element => {
         const placeholder = element.getAttribute('data-placeholder-' + lang);
         element.placeholder = placeholder;
     });
-    
+
     // Actualizar título de la página
     if (lang === 'en') {
-        document.title = 'Maxim Esteban | Digital Marketing & Web Development';
-        document.querySelector('meta[name="description"]').setAttribute('content', 
-            'Màxim Esteban - Professional portfolio. Specialist in Digital Marketing, Frontend Web Development and UI/UX. Digital consulting services. Barcelona, Spain.');
+        document.title = 'Màxim Esteban | Multidisciplinary Professional';
+        document.querySelector('meta[name="description"]').setAttribute('content',
+            'Multidisciplinary professional with 9+ years in communication, digital marketing, web development and project management. Specialized in combining creativity, technology and strategy for measurable results.');
     } else {
-        document.title = 'Maxim Esteban | Marketing Digital & Desarrollo Web';
-        document.querySelector('meta[name="description"]').setAttribute('content', 
-            'Màxim Esteban - Portfolio profesional. Especialista en Marketing Digital, Desarrollo Web Frontend y UI/UX. Servicios de consultoría digital. Barcelona, España.');
+        document.title = 'Màxim Esteban | Profesional Multidisciplinar';
+        document.querySelector('meta[name="description"]').setAttribute('content',
+            'Profesional multidisciplinar con 9+ años en comunicación, marketing digital, desarrollo web y gestión de proyectos. Especializado en combinar creatividad, tecnología y estrategia para resultados medibles.');
     }
-    
-    // Actualizar enlaces del CV (tanto navbar como flotante)
-    document.querySelectorAll('.btn-cv, .floating-cv').forEach(cvButton => {
-        if (lang === 'en') {
-            cvButton.href = 'cv/CV_Maxim_Esteban_EN.pdf';
-        } else {
-            cvButton.href = 'cv/Maxim_Esteban_CV.pdf';
-        }
-    });
-    
+
     // Guardar preferencia
     localStorage.setItem('language', lang);
+}
+
+// === GENERACIÓN DE CV EN PDF (DINÁMICO) ===
+function generateCV() {
+    // Construir CV dinámicamente leyendo desde la web
+    const cvHTML = buildDynamicCV();
+
+    // Crear un contenedor temporal para el PDF
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = cvHTML;
+    tempContainer.style.display = 'block';
+    document.body.appendChild(tempContainer);
+
+    // Configuración del PDF
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: currentLanguage === 'es' ? 'CV_Maxim_Esteban.pdf' : 'CV_Maxim_Esteban_EN.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        }
+    };
+
+    // Generar el PDF
+    html2pdf().set(opt).from(tempContainer.querySelector('.cv-container')).save().then(() => {
+        // Eliminar el contenedor temporal
+        document.body.removeChild(tempContainer);
+    });
+
+    // Mostrar notificación
+    showNotification(
+        currentLanguage === 'es'
+            ? '¡CV descargado correctamente!'
+            : 'CV downloaded successfully!',
+        'success'
+    );
+}
+
+function buildDynamicCV() {
+    const lang = currentLanguage;
+
+    // Leer perfil profesional dinámicamente desde la web
+    const aboutSection = document.querySelector('#about .about-text');
+    const aboutParagraphs = aboutSection.querySelectorAll('p');
+    const profileText = Array.from(aboutParagraphs)
+        .slice(0, 1) // Solo el primer párrafo para el perfil
+        .map(p => p.textContent.trim())
+        .join(' ');
+
+    // Leer skills dinámicamente desde la web
+    const skillCategories = document.querySelectorAll('.skill-category');
+    let skillsHTML = '';
+
+    skillCategories.forEach(category => {
+        const categoryTitle = category.querySelector('.category-title').textContent.trim();
+        const skillItems = category.querySelectorAll('.skill-item span');
+        const skills = Array.from(skillItems).map(skill => `<li>${skill.textContent.trim()}</li>`).join('');
+
+        skillsHTML += `
+            <div class="cv-skill-column">
+                <h3 class="cv-skill-category">${categoryTitle}</h3>
+                <ul class="cv-skill-list">
+                    ${skills}
+                </ul>
+            </div>
+        `;
+    });
+
+    // Hardcoded: Experiencia profesional (no está en la web con este detalle)
+    const experienceHTML = `
+        <div class="cv-experience-item">
+            <div class="cv-job-header">
+                <h3 class="cv-job-title">Operation Head & Customer Success</h3>
+                <span class="cv-job-date">${lang === 'es' ? 'Octubre 2024 - Actualidad' : 'October 2024 - Present'}</span>
+            </div>
+            <p class="cv-company">Placenet - Internet of Places ${lang === 'es' ? '(Startup tecnológica)' : '(Technology Startup)'}</p>
+            <ul class="cv-responsibilities">
+                <li>${lang === 'es' ? 'Dirección de operaciones y optimización de procesos internos' : 'Operations management and internal process optimization'}</li>
+                <li>${lang === 'es' ? 'Customer success, onboarding y retención de usuarios' : 'Customer success, onboarding and user retention'}</li>
+                <li>${lang === 'es' ? 'Gestión de KPIs, reporting y análisis de métricas operacionales' : 'KPI management, reporting and operational metrics analysis'}</li>
+                <li>${lang === 'es' ? 'Coordinación entre equipos técnicos y comerciales' : 'Coordination between technical and commercial teams'}</li>
+            </ul>
+        </div>
+        <div class="cv-experience-item">
+            <div class="cv-job-header">
+                <h3 class="cv-job-title">Communication, Content & Talent Manager</h3>
+                <span class="cv-job-date">${lang === 'es' ? 'Agosto 2023 - Octubre 2024' : 'August 2023 - October 2024'}</span>
+            </div>
+            <p class="cv-company">Placenet - Internet of Places ${lang === 'es' ? '(Startup tecnológica)' : '(Technology Startup)'}</p>
+            <ul class="cv-responsibilities">
+                <li>${lang === 'es' ? 'Gestión de comunicación corporativa y creación de contenido digital' : 'Corporate communication management and digital content creation'}</li>
+                <li>${lang === 'es' ? 'Coordinación de talento, embajadores y relaciones públicas' : 'Talent coordination, ambassadors and public relations'}</li>
+                <li>${lang === 'es' ? 'Desarrollo web completo y diseño UI/UX de la app' : 'Complete web development and app UI/UX design'}</li>
+                <li>${lang === 'es' ? 'Desarrollo y ejecución de estrategias de marca y posicionamiento' : 'Brand and positioning strategy development and execution'}</li>
+            </ul>
+        </div>
+        <div class="cv-experience-item">
+            <div class="cv-job-header">
+                <h3 class="cv-job-title">${lang === 'es' ? 'Director de Marketing' : 'Marketing Director'}</h3>
+                <span class="cv-job-date">2022 - 2024</span>
+            </div>
+            <p class="cv-company">CBI Elche</p>
+            <ul class="cv-responsibilities">
+                <li>${lang === 'es' ? 'Diseño y dirección de estrategia de marketing y comunicación del club' : 'Design and direction of club marketing and communication strategy'}</li>
+                <li>${lang === 'es' ? 'Gestión de redes sociales, imagen corporativa y relaciones con patrocinadores' : 'Social media management, corporate image and sponsor relations'}</li>
+                <li>${lang === 'es' ? 'Coordinación de campañas de comunicación y eventos' : 'Communication campaigns and events coordination'}</li>
+            </ul>
+        </div>
+        <div class="cv-experience-item">
+            <div class="cv-job-header">
+                <h3 class="cv-job-title">${lang === 'es' ? 'Co-fundador y Director' : 'Co-founder and Director'}</h3>
+                <span class="cv-job-date">2022 - 2024</span>
+            </div>
+            <p class="cv-company">HIPE Basketball & HIPE Agency</p>
+            <ul class="cv-responsibilities">
+                <li>${lang === 'es' ? 'Fundador de agencia de eventos deportivos y representación de talentos' : 'Founder of sports events agency and talent representation'}</li>
+                <li>${lang === 'es' ? 'Dirección de marketing, comunicación y estrategia de crecimiento' : 'Marketing direction, communication and growth strategy'}</li>
+                <li>${lang === 'es' ? 'Gestión integral de clubes y eventos deportivos' : 'Comprehensive management of clubs and sports events'}</li>
+            </ul>
+        </div>
+        <div class="cv-experience-item">
+            <div class="cv-job-header">
+                <h3 class="cv-job-title">${lang === 'es' ? 'Prácticas en Comunicación' : 'Communication Internship'}</h3>
+                <span class="cv-job-date">2022 - 2023</span>
+            </div>
+            <p class="cv-company">CB Benicarló</p>
+            <ul class="cv-responsibilities">
+                <li>${lang === 'es' ? 'Creación de contenido gráfico y audiovisual' : 'Graphic and audiovisual content creation'}</li>
+                <li>${lang === 'es' ? 'Redacción de notas de prensa y comunicación corporativa' : 'Press release writing and corporate communication'}</li>
+            </ul>
+        </div>
+        <div class="cv-experience-item">
+            <div class="cv-job-header">
+                <h3 class="cv-job-title">${lang === 'es' ? 'Jugador Profesional de Baloncesto' : 'Professional Basketball Player'}</h3>
+                <span class="cv-job-date">${lang === 'es' ? '2016 - Actualidad' : '2016 - Present'}</span>
+            </div>
+            <p class="cv-company">${lang === 'es' ? 'Diferentes clubes profesionales' : 'Various professional clubs'}</p>
+            <ul class="cv-responsibilities">
+                <li>${lang === 'es' ? 'Liderazgo, trabajo en equipo y gestión de la presión' : 'Leadership, teamwork and pressure management'}</li>
+                <li>${lang === 'es' ? 'Disciplina, competitividad y orientación a resultados' : 'Discipline, competitiveness and results orientation'}</li>
+            </ul>
+        </div>
+    `;
+
+    // Hardcoded: Formación (no está en la web)
+    const educationHTML = `
+        <div class="cv-education-item">
+            <div class="cv-education-header">
+                <h3 class="cv-degree">${lang === 'es' ? 'Licencia de Entrenador Nacional Nivel 1 (N1 Coach License)' : 'National Coach License Level 1 (N1 Coach License)'}</h3>
+                <span class="cv-year">2024</span>
+            </div>
+            <p class="cv-institution">${lang === 'es' ? 'FEB (Federación Española de Baloncesto)' : 'FEB (Spanish Basketball Federation)'}</p>
+        </div>
+        <div class="cv-education-item">
+            <div class="cv-education-header">
+                <h3 class="cv-degree">${lang === 'es' ? 'Ciclo Formativo de Grado Superior, Marketing y Publicidad' : 'Higher Vocational Training, Marketing and Advertising'}</h3>
+                <span class="cv-year">2021 - 2023</span>
+            </div>
+            <p class="cv-institution">UOC X - Xtended Studies</p>
+        </div>
+        <div class="cv-education-item">
+            <div class="cv-education-header">
+                <h3 class="cv-degree">${lang === 'es' ? 'Programa +QESPORT' : '+QESPORT Program'}</h3>
+                <span class="cv-year">2019</span>
+            </div>
+            <p class="cv-institution">ESERP Business & Law School</p>
+        </div>
+        <div class="cv-education-item">
+            <div class="cv-education-header">
+                <h3 class="cv-degree">${lang === 'es' ? 'Productor Musical, Música' : 'Music Producer, Music'}</h3>
+                <span class="cv-year">2019</span>
+            </div>
+            <p class="cv-institution">CPA SALDUIE</p>
+        </div>
+        <div class="cv-education-item">
+            <div class="cv-education-header">
+                <h3 class="cv-degree">${lang === 'es' ? 'Eines de Comunicació Per a Ser Professional' : 'Communication Tools to Be a Professional'}</h3>
+                <span class="cv-year">2018</span>
+            </div>
+            <p class="cv-institution">${lang === 'es' ? 'Futbol Club Barcelona - Comunicación digital y contenidos multimedia' : 'FC Barcelona - Digital communication and multimedia content'}</p>
+        </div>
+    `;
+
+    // Construir el HTML completo del CV
+    return `
+        <div class="cv-container">
+            <div class="cv-header">
+                <h1>Màxim Esteban Calvo</h1>
+                <p class="cv-tagline">${lang === 'es' ? 'Profesional Multidisciplinar' : 'Multidisciplinary Professional'}</p>
+            </div>
+
+            <div class="cv-contact">
+                <div class="cv-contact-item">
+                    <i class="fas fa-envelope"></i> <a href="mailto:maximestebanc@gmail.com" class="cv-link">maximestebanc@gmail.com</a>
+                </div>
+                <div class="cv-contact-item">
+                    <i class="fas fa-phone"></i> <a href="tel:+34623173898" class="cv-link">+34 623 17 38 98</a>
+                </div>
+                <div class="cv-contact-item">
+                    <i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/maximesteban" class="cv-link">linkedin.com/in/maximesteban</a>
+                </div>
+                <div class="cv-contact-item">
+                    <i class="fab fa-github"></i> <a href="https://github.com/maximesteban" class="cv-link">github.com/maximesteban</a>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title">${lang === 'es' ? 'Perfil Profesional' : 'Professional Profile'}</h2>
+                <p class="cv-text">${profileText}</p>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title">${lang === 'es' ? 'Habilidades Clave' : 'Key Skills'}</h2>
+                <div class="cv-skills-grid">
+                    ${skillsHTML}
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title">${lang === 'es' ? 'Experiencia Profesional' : 'Professional Experience'}</h2>
+                ${experienceHTML}
+            </div>
+
+            <div class="cv-section">
+                <h2 class="cv-section-title">${lang === 'es' ? 'Formación Académica' : 'Education'}</h2>
+                ${educationHTML}
+            </div>
+
+            <div class="cv-section cv-languages-additional">
+                <div class="cv-column-half">
+                    <h2 class="cv-section-title">${lang === 'es' ? 'Idiomas' : 'Languages'}</h2>
+                    <ul class="cv-language-list">
+                        <li><strong>${lang === 'es' ? 'Español' : 'Spanish'}</strong>: <span>${lang === 'es' ? 'Nativo' : 'Native'}</span></li>
+                        <li><strong>${lang === 'es' ? 'Catalán' : 'Catalan'}</strong>: <span>${lang === 'es' ? 'Nativo' : 'Native'}</span></li>
+                        <li><strong>${lang === 'es' ? 'Inglés' : 'English'}</strong>: <span>${lang === 'es' ? 'Profesional' : 'Professional'}</span></li>
+                    </ul>
+                </div>
+                <div class="cv-column-half">
+                    <h2 class="cv-section-title">${lang === 'es' ? 'Información Adicional' : 'Additional Information'}</h2>
+                    <ul class="cv-additional-list">
+                        <li>${lang === 'es' ? 'Carnet de conducir: B' : 'Driving license: B'}</li>
+                        <li>${lang === 'es' ? 'Disponibilidad para trabajo remoto' : 'Available for remote work'}</li>
+                        <li>${lang === 'es' ? 'Dispuesto a relocalización' : 'Willing to relocate'}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-footer">
+                <p class="cv-footer-text">${lang === 'es' ? 'Generado desde maximesteban.com' : 'Generated from maximesteban.com'}</p>
+            </div>
+        </div>
+    `;
 }
