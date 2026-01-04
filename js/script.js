@@ -142,7 +142,7 @@ document.querySelectorAll('.stat').forEach(stat => {
 
 // Formulario de contacto
 const contactForm = document.getElementById('contact-form');
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEFeuqPmqmoUpFejYuHEWy9qvjEC-RUTozw8RWMUAjbDpnc6H_dKRLPiSMVCiTUKdDUg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBrG3jUwLhc8IoLi31AfNFujeVqgOz_V1XTghdEsvvVKx9JTKv6GNDbvgxbPG608dSWg/exec';
 
 contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -179,22 +179,25 @@ contactForm.addEventListener('submit', async function(e) {
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Enviando...</span>';
 
     try {
+        // Crear URLSearchParams con los datos del formulario
+        const params = new URLSearchParams();
+        params.append('name', name);
+        params.append('email', email);
+        params.append('subject', subject);
+        params.append('message', message);
+
         // Enviar datos a Google Apps Script
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            body: formData
+        const response = await fetch(GOOGLE_SCRIPT_URL + '?' + params.toString(), {
+            method: 'GET',
+            redirect: 'follow'
         });
 
-        const result = await response.json();
+        // Mostrar mensaje de éxito
+        showNotification(currentLanguage === 'es'
+            ? '¡Mensaje enviado correctamente! Te contactaré pronto.'
+            : 'Message sent successfully! I will contact you soon.', 'success');
 
-        if (result.status === 'success') {
-            showNotification(currentLanguage === 'es'
-                ? '¡Mensaje enviado correctamente! Te contactaré pronto.'
-                : 'Message sent successfully! I will contact you soon.', 'success');
-            this.reset();
-        } else {
-            throw new Error(result.message || 'Error al enviar el mensaje');
-        }
+        this.reset();
 
     } catch (error) {
         console.error('Error:', error);
