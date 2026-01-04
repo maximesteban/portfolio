@@ -423,6 +423,22 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+/* Botón en estado de carga */
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .hero-image {
     display: flex;
     justify-content: center;
@@ -630,12 +646,33 @@ body {
 }
 
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     gap: 2rem;
-    max-width: 900px;
+    padding: 0 20px 2rem 20px;
     margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+}
+
+.skills-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.skills-grid::-webkit-scrollbar-track {
+    background: var(--background-subtle);
+    border-radius: 10px;
+}
+
+.skills-grid::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 10px;
+}
+
+.skills-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 .skill-category {
@@ -648,6 +685,10 @@ body {
     position: relative;
     overflow: hidden;
     min-height: 280px;
+    min-width: 400px;
+    max-width: 400px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
 }
 
 .skill-category::before {
@@ -716,11 +757,33 @@ body {
 }
 
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     gap: 2rem;
-    max-width: 1200px;
+    padding: 0 20px 2rem 20px;
     margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+}
+
+.projects-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+    background: var(--background-subtle);
+    border-radius: 10px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 10px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 .project-card {
@@ -730,6 +793,10 @@ body {
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-color);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 350px;
+    max-width: 350px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
 }
 
 .project-card:hover {
@@ -1534,19 +1601,18 @@ body {
     }
 }
 
-/* Desktop - Asegurar 3 columnas en pantallas grandes */
+/* Desktop - Keep slider but larger cards */
 @media (min-width: 1025px) {
-    .projects-grid {
-        grid-template-columns: repeat(3, 1fr);
-        display: grid;
-        max-width: 1200px;
-    }
-    
     .project-card {
-        min-width: auto;
-        max-width: none;
+        min-width: 380px;
+        max-width: 380px;
     }
-    
+
+    .skill-category {
+        min-width: 450px;
+        max-width: 450px;
+    }
+
     /* Asegurar que las secciones estén centradas en desktop */
     .contact .container,
     .about .container {
@@ -1554,13 +1620,13 @@ body {
         margin: 0 auto;
         padding: 0 2rem;
     }
-    
+
     .contact-content {
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
         max-width: 100%;
     }
-    
+
     .about-content {
         grid-template-columns: 1fr;
         gap: 4rem;
@@ -1569,31 +1635,21 @@ body {
     }
 }
 
-/* Tablet - Una columna en skills-list y projects slider */
+/* Tablet - Adjust card sizes */
 @media (max-width: 1024px) {
     .skills-list {
         grid-template-columns: 1fr;
         gap: 0.8rem;
     }
-    
-    /* Projects slider para tablet */
-    .projects-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        gap: 1.5rem;
-        padding: 0 20px 2rem 20px;
-        margin: 0;
-        grid-template-columns: none;
-        -webkit-overflow-scrolling: touch;
-    }
-    
+
     .project-card {
-        min-width: calc(100% - 4rem);
-        max-width: calc(100% - 4rem);
-        flex-shrink: 0;
-        scroll-snap-align: center;
+        min-width: calc(90vw - 40px);
+        max-width: calc(90vw - 40px);
+    }
+
+    .skill-category {
+        min-width: calc(90vw - 40px);
+        max-width: calc(90vw - 40px);
     }
 }
 
@@ -1684,7 +1740,7 @@ body {
 }
 
 .mobile-hint {
-    display: none;
+    display: inline;
     font-size: 0.9rem;
     color: var(--text-muted);
     font-style: italic;

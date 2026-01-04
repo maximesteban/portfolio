@@ -142,31 +142,70 @@ document.querySelectorAll('.stat').forEach(stat => {
 
 // Formulario de contacto
 const contactForm = document.getElementById('contact-form');
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEFeuqPmqmoUpFejYuHEWy9qvjEC-RUTozw8RWMUAjbDpnc6H_dKRLPiSMVCiTUKdDUg/exec';
 
-contactForm.addEventListener('submit', function(e) {
+contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    
+
     // Obtener datos del formulario
     const formData = new FormData(this);
     const name = formData.get('name');
     const email = formData.get('email');
     const subject = formData.get('subject');
     const message = formData.get('message');
-    
+
     // Validación básica
     if (!name || !email || !subject || !message) {
         showNotification('Por favor, completa todos los campos.', 'error');
         return;
     }
-    
+
     if (!isValidEmail(email)) {
         showNotification('Por favor, ingresa un email válido.', 'error');
         return;
     }
-    
-    // Simular envío (aquí conectarías con tu backend)
-    showNotification('¡Mensaje enviado correctamente! Te contactaré pronto.', 'success');
-    this.reset();
+
+    // Verificar checkbox de privacidad
+    const privacyConsent = document.getElementById('privacy-consent');
+    if (!privacyConsent.checked) {
+        showNotification('Debes aceptar la Política de Privacidad.', 'error');
+        return;
+    }
+
+    // Mostrar indicador de carga
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.innerHTML;
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Enviando...</span>';
+
+    try {
+        // Enviar datos a Google Apps Script
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            showNotification(currentLanguage === 'es'
+                ? '¡Mensaje enviado correctamente! Te contactaré pronto.'
+                : 'Message sent successfully! I will contact you soon.', 'success');
+            this.reset();
+        } else {
+            throw new Error(result.message || 'Error al enviar el mensaje');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification(currentLanguage === 'es'
+            ? 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo o escríbeme directamente a maxim@maximesteban.com'
+            : 'There was an error sending the message. Please try again or write to me directly at maxim@maximesteban.com', 'error');
+    } finally {
+        // Restaurar botón
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+    }
 });
 
 // Validación de email
