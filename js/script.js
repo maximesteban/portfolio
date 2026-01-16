@@ -553,8 +553,12 @@ function generateCV() {
     // Crear un contenedor temporal para el PDF
     const tempContainer = document.createElement('div');
     tempContainer.innerHTML = cvHTML;
-    tempContainer.style.display = 'block';
+    tempContainer.style.cssText = 'position: absolute; left: -9999px; top: 0; background: #ffffff;';
     document.body.appendChild(tempContainer);
+
+    // Aplicar estilos inline directamente al cv-container
+    const cvContainer = tempContainer.querySelector('.cv-container');
+    cvContainer.style.cssText = 'font-family: Inter, Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background: #ffffff; color: #1a1a1a; line-height: 1.6;';
 
     // Configuración del PDF
     const opt = {
@@ -564,7 +568,8 @@ function generateCV() {
         html2canvas: {
             scale: 2,
             useCORS: true,
-            letterRendering: true
+            letterRendering: true,
+            backgroundColor: '#ffffff'
         },
         jsPDF: {
             unit: 'mm',
@@ -574,7 +579,7 @@ function generateCV() {
     };
 
     // Generar el PDF
-    html2pdf().set(opt).from(tempContainer.querySelector('.cv-container')).save().then(() => {
+    html2pdf().set(opt).from(cvContainer).save().then(() => {
         // Eliminar el contenedor temporal
         document.body.removeChild(tempContainer);
     });
@@ -606,199 +611,205 @@ function buildDynamicCV() {
     skillCategories.forEach(category => {
         const categoryTitle = category.querySelector('.category-title').textContent.trim();
         const skillItems = category.querySelectorAll('.skill-item span');
-        const skills = Array.from(skillItems).map(skill => `<li>${skill.textContent.trim()}</li>`).join('');
+        const skills = Array.from(skillItems).map(skill => `<li style="font-size: 13px; color: #333333; padding: 3px 0;">${skill.textContent.trim()}</li>`).join('');
 
         skillsHTML += `
-            <div class="cv-skill-column">
-                <h3 class="cv-skill-category">${categoryTitle}</h3>
-                <ul class="cv-skill-list">
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                <h3 style="font-size: 15px; font-weight: 600; color: #0099ff; margin: 0 0 10px 0;">${categoryTitle}</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
                     ${skills}
                 </ul>
             </div>
         `;
     });
 
-    // Hardcoded: Experiencia profesional (no está en la web con este detalle)
+    // Hardcoded: Experiencia profesional con estilos inline
+    const expItemStyle = 'margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eeeeee;';
+    const expHeaderStyle = 'display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;';
+    const expTitleStyle = 'font-size: 16px; font-weight: 600; color: #1a1a1a; margin: 0;';
+    const expDateStyle = 'font-size: 13px; color: #666666;';
+    const expCompanyStyle = 'font-size: 14px; color: #0099ff; margin: 0 0 10px 0; font-weight: 500;';
+    const expListStyle = 'list-style: none; padding: 0; margin: 0;';
+    const expLiStyle = 'font-size: 13px; color: #333333; padding: 3px 0 3px 15px; position: relative;';
+
     const experienceHTML = `
-        <div class="cv-experience-item">
-            <div class="cv-job-header">
-                <h3 class="cv-job-title">Operation Head & Customer Success</h3>
-                <span class="cv-job-date">${lang === 'es' ? 'Octubre 2024 - Actualidad' : 'October 2024 - Present'}</span>
+        <div style="${expItemStyle}">
+            <div style="${expHeaderStyle}">
+                <h3 style="${expTitleStyle}">Operation Head & Customer Success</h3>
+                <span style="${expDateStyle}">${lang === 'es' ? 'Octubre 2024 - Actualidad' : 'October 2024 - Present'}</span>
             </div>
-            <p class="cv-company">Placenet - Internet of Places ${lang === 'es' ? '(Startup tecnológica)' : '(Technology Startup)'}</p>
-            <ul class="cv-responsibilities">
-                <li>${lang === 'es' ? 'Dirección de operaciones y optimización de procesos internos' : 'Operations management and internal process optimization'}</li>
-                <li>${lang === 'es' ? 'Customer success, onboarding y retención de usuarios' : 'Customer success, onboarding and user retention'}</li>
-                <li>${lang === 'es' ? 'Gestión de KPIs, reporting y análisis de métricas operacionales' : 'KPI management, reporting and operational metrics analysis'}</li>
-                <li>${lang === 'es' ? 'Coordinación entre equipos técnicos y comerciales' : 'Coordination between technical and commercial teams'}</li>
+            <p style="${expCompanyStyle}">Placenet - Internet of Places ${lang === 'es' ? '(Startup tecnológica)' : '(Technology Startup)'}</p>
+            <ul style="${expListStyle}">
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Dirección de operaciones y optimización de procesos internos' : 'Operations management and internal process optimization'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Customer success, onboarding y retención de usuarios' : 'Customer success, onboarding and user retention'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Gestión de KPIs, reporting y análisis de métricas operacionales' : 'KPI management, reporting and operational metrics analysis'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Coordinación entre equipos técnicos y comerciales' : 'Coordination between technical and commercial teams'}</li>
             </ul>
         </div>
-        <div class="cv-experience-item">
-            <div class="cv-job-header">
-                <h3 class="cv-job-title">Communication, Content & Talent Manager</h3>
-                <span class="cv-job-date">${lang === 'es' ? 'Agosto 2023 - Octubre 2024' : 'August 2023 - October 2024'}</span>
+        <div style="${expItemStyle}">
+            <div style="${expHeaderStyle}">
+                <h3 style="${expTitleStyle}">Communication, Content & Talent Manager</h3>
+                <span style="${expDateStyle}">${lang === 'es' ? 'Agosto 2023 - Octubre 2024' : 'August 2023 - October 2024'}</span>
             </div>
-            <p class="cv-company">Placenet - Internet of Places ${lang === 'es' ? '(Startup tecnológica)' : '(Technology Startup)'}</p>
-            <ul class="cv-responsibilities">
-                <li>${lang === 'es' ? 'Gestión de comunicación corporativa y creación de contenido digital' : 'Corporate communication management and digital content creation'}</li>
-                <li>${lang === 'es' ? 'Coordinación de talento, embajadores y relaciones públicas' : 'Talent coordination, ambassadors and public relations'}</li>
-                <li>${lang === 'es' ? 'Desarrollo web completo y diseño UI/UX de la app' : 'Complete web development and app UI/UX design'}</li>
-                <li>${lang === 'es' ? 'Desarrollo y ejecución de estrategias de marca y posicionamiento' : 'Brand and positioning strategy development and execution'}</li>
+            <p style="${expCompanyStyle}">Placenet - Internet of Places ${lang === 'es' ? '(Startup tecnológica)' : '(Technology Startup)'}</p>
+            <ul style="${expListStyle}">
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Gestión de comunicación corporativa y creación de contenido digital' : 'Corporate communication management and digital content creation'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Coordinación de talento, embajadores y relaciones públicas' : 'Talent coordination, ambassadors and public relations'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Desarrollo web completo y diseño UI/UX de la app' : 'Complete web development and app UI/UX design'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Desarrollo y ejecución de estrategias de marca y posicionamiento' : 'Brand and positioning strategy development and execution'}</li>
             </ul>
         </div>
-        <div class="cv-experience-item">
-            <div class="cv-job-header">
-                <h3 class="cv-job-title">${lang === 'es' ? 'Director de Marketing' : 'Marketing Director'}</h3>
-                <span class="cv-job-date">2022 - 2024</span>
+        <div style="${expItemStyle}">
+            <div style="${expHeaderStyle}">
+                <h3 style="${expTitleStyle}">${lang === 'es' ? 'Director de Marketing' : 'Marketing Director'}</h3>
+                <span style="${expDateStyle}">2022 - 2024</span>
             </div>
-            <p class="cv-company">CBI Elche</p>
-            <ul class="cv-responsibilities">
-                <li>${lang === 'es' ? 'Diseño y dirección de estrategia de marketing y comunicación del club' : 'Design and direction of club marketing and communication strategy'}</li>
-                <li>${lang === 'es' ? 'Gestión de redes sociales, imagen corporativa y relaciones con patrocinadores' : 'Social media management, corporate image and sponsor relations'}</li>
-                <li>${lang === 'es' ? 'Coordinación de campañas de comunicación y eventos' : 'Communication campaigns and events coordination'}</li>
+            <p style="${expCompanyStyle}">CBI Elche</p>
+            <ul style="${expListStyle}">
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Diseño y dirección de estrategia de marketing y comunicación del club' : 'Design and direction of club marketing and communication strategy'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Gestión de redes sociales, imagen corporativa y relaciones con patrocinadores' : 'Social media management, corporate image and sponsor relations'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Coordinación de campañas de comunicación y eventos' : 'Communication campaigns and events coordination'}</li>
             </ul>
         </div>
-        <div class="cv-experience-item">
-            <div class="cv-job-header">
-                <h3 class="cv-job-title">${lang === 'es' ? 'Co-fundador y Director' : 'Co-founder and Director'}</h3>
-                <span class="cv-job-date">2022 - 2024</span>
+        <div style="${expItemStyle}">
+            <div style="${expHeaderStyle}">
+                <h3 style="${expTitleStyle}">${lang === 'es' ? 'Co-fundador y Director' : 'Co-founder and Director'}</h3>
+                <span style="${expDateStyle}">2022 - 2024</span>
             </div>
-            <p class="cv-company">HIPE Basketball & HIPE Agency</p>
-            <ul class="cv-responsibilities">
-                <li>${lang === 'es' ? 'Fundador de agencia de eventos deportivos y representación de talentos' : 'Founder of sports events agency and talent representation'}</li>
-                <li>${lang === 'es' ? 'Dirección de marketing, comunicación y estrategia de crecimiento' : 'Marketing direction, communication and growth strategy'}</li>
-                <li>${lang === 'es' ? 'Gestión integral de clubes y eventos deportivos' : 'Comprehensive management of clubs and sports events'}</li>
+            <p style="${expCompanyStyle}">HIPE Basketball & HIPE Agency</p>
+            <ul style="${expListStyle}">
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Fundador de agencia de eventos deportivos y representación de talentos' : 'Founder of sports events agency and talent representation'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Dirección de marketing, comunicación y estrategia de crecimiento' : 'Marketing direction, communication and growth strategy'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Gestión integral de clubes y eventos deportivos' : 'Comprehensive management of clubs and sports events'}</li>
             </ul>
         </div>
-        <div class="cv-experience-item">
-            <div class="cv-job-header">
-                <h3 class="cv-job-title">${lang === 'es' ? 'Prácticas en Comunicación' : 'Communication Internship'}</h3>
-                <span class="cv-job-date">2022 - 2023</span>
+        <div style="${expItemStyle}">
+            <div style="${expHeaderStyle}">
+                <h3 style="${expTitleStyle}">${lang === 'es' ? 'Prácticas en Comunicación' : 'Communication Internship'}</h3>
+                <span style="${expDateStyle}">2022 - 2023</span>
             </div>
-            <p class="cv-company">CB Benicarló</p>
-            <ul class="cv-responsibilities">
-                <li>${lang === 'es' ? 'Creación de contenido gráfico y audiovisual' : 'Graphic and audiovisual content creation'}</li>
-                <li>${lang === 'es' ? 'Redacción de notas de prensa y comunicación corporativa' : 'Press release writing and corporate communication'}</li>
+            <p style="${expCompanyStyle}">CB Benicarló</p>
+            <ul style="${expListStyle}">
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Creación de contenido gráfico y audiovisual' : 'Graphic and audiovisual content creation'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Redacción de notas de prensa y comunicación corporativa' : 'Press release writing and corporate communication'}</li>
             </ul>
         </div>
-        <div class="cv-experience-item">
-            <div class="cv-job-header">
-                <h3 class="cv-job-title">${lang === 'es' ? 'Jugador Profesional de Baloncesto' : 'Professional Basketball Player'}</h3>
-                <span class="cv-job-date">${lang === 'es' ? '2016 - Actualidad' : '2016 - Present'}</span>
+        <div style="${expItemStyle}">
+            <div style="${expHeaderStyle}">
+                <h3 style="${expTitleStyle}">${lang === 'es' ? 'Jugador Profesional de Baloncesto' : 'Professional Basketball Player'}</h3>
+                <span style="${expDateStyle}">${lang === 'es' ? '2016 - Actualidad' : '2016 - Present'}</span>
             </div>
-            <p class="cv-company">${lang === 'es' ? 'Diferentes clubes profesionales' : 'Various professional clubs'}</p>
-            <ul class="cv-responsibilities">
-                <li>${lang === 'es' ? 'Liderazgo, trabajo en equipo y gestión de la presión' : 'Leadership, teamwork and pressure management'}</li>
-                <li>${lang === 'es' ? 'Disciplina, competitividad y orientación a resultados' : 'Discipline, competitiveness and results orientation'}</li>
+            <p style="${expCompanyStyle}">${lang === 'es' ? 'Diferentes clubes profesionales' : 'Various professional clubs'}</p>
+            <ul style="${expListStyle}">
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Liderazgo, trabajo en equipo y gestión de la presión' : 'Leadership, teamwork and pressure management'}</li>
+                <li style="${expLiStyle}">▸ ${lang === 'es' ? 'Disciplina, competitividad y orientación a resultados' : 'Discipline, competitiveness and results orientation'}</li>
             </ul>
         </div>
     `;
 
-    // Hardcoded: Formación (no está en la web)
+    // Hardcoded: Formación con estilos inline
+    const eduItemStyle = 'margin-bottom: 15px;';
+    const eduHeaderStyle = 'display: flex; justify-content: space-between; align-items: baseline;';
+    const eduDegreeStyle = 'font-size: 15px; font-weight: 600; color: #1a1a1a; margin: 0;';
+    const eduYearStyle = 'font-size: 13px; color: #666666;';
+    const eduInstStyle = 'font-size: 13px; color: #0099ff; margin: 5px 0 0 0;';
+
     const educationHTML = `
-        <div class="cv-education-item">
-            <div class="cv-education-header">
-                <h3 class="cv-degree">${lang === 'es' ? 'Licencia de Entrenador Nacional Nivel 1 (N1 Coach License)' : 'National Coach License Level 1 (N1 Coach License)'}</h3>
-                <span class="cv-year">2024</span>
+        <div style="${eduItemStyle}">
+            <div style="${eduHeaderStyle}">
+                <h3 style="${eduDegreeStyle}">${lang === 'es' ? 'Licencia de Entrenador Nacional Nivel 1 (N1 Coach License)' : 'National Coach License Level 1 (N1 Coach License)'}</h3>
+                <span style="${eduYearStyle}">2024</span>
             </div>
-            <p class="cv-institution">${lang === 'es' ? 'FEB (Federación Española de Baloncesto)' : 'FEB (Spanish Basketball Federation)'}</p>
+            <p style="${eduInstStyle}">${lang === 'es' ? 'FEB (Federación Española de Baloncesto)' : 'FEB (Spanish Basketball Federation)'}</p>
         </div>
-        <div class="cv-education-item">
-            <div class="cv-education-header">
-                <h3 class="cv-degree">${lang === 'es' ? 'Ciclo Formativo de Grado Superior, Marketing y Publicidad' : 'Higher Vocational Training, Marketing and Advertising'}</h3>
-                <span class="cv-year">2021 - 2023</span>
+        <div style="${eduItemStyle}">
+            <div style="${eduHeaderStyle}">
+                <h3 style="${eduDegreeStyle}">${lang === 'es' ? 'Ciclo Formativo de Grado Superior, Marketing y Publicidad' : 'Higher Vocational Training, Marketing and Advertising'}</h3>
+                <span style="${eduYearStyle}">2021 - 2023</span>
             </div>
-            <p class="cv-institution">UOC X - Xtended Studies</p>
+            <p style="${eduInstStyle}">UOC X - Xtended Studies</p>
         </div>
-        <div class="cv-education-item">
-            <div class="cv-education-header">
-                <h3 class="cv-degree">${lang === 'es' ? 'Programa +QESPORT' : '+QESPORT Program'}</h3>
-                <span class="cv-year">2019</span>
+        <div style="${eduItemStyle}">
+            <div style="${eduHeaderStyle}">
+                <h3 style="${eduDegreeStyle}">${lang === 'es' ? 'Programa +QESPORT' : '+QESPORT Program'}</h3>
+                <span style="${eduYearStyle}">2019</span>
             </div>
-            <p class="cv-institution">ESERP Business & Law School</p>
+            <p style="${eduInstStyle}">ESERP Business & Law School</p>
         </div>
-        <div class="cv-education-item">
-            <div class="cv-education-header">
-                <h3 class="cv-degree">${lang === 'es' ? 'Productor Musical, Música' : 'Music Producer, Music'}</h3>
-                <span class="cv-year">2019</span>
+        <div style="${eduItemStyle}">
+            <div style="${eduHeaderStyle}">
+                <h3 style="${eduDegreeStyle}">${lang === 'es' ? 'Productor Musical, Música' : 'Music Producer, Music'}</h3>
+                <span style="${eduYearStyle}">2019</span>
             </div>
-            <p class="cv-institution">CPA SALDUIE</p>
+            <p style="${eduInstStyle}">CPA SALDUIE</p>
         </div>
-        <div class="cv-education-item">
-            <div class="cv-education-header">
-                <h3 class="cv-degree">${lang === 'es' ? 'Eines de Comunicació Per a Ser Professional' : 'Communication Tools to Be a Professional'}</h3>
-                <span class="cv-year">2018</span>
+        <div style="${eduItemStyle}">
+            <div style="${eduHeaderStyle}">
+                <h3 style="${eduDegreeStyle}">${lang === 'es' ? 'Eines de Comunicació Per a Ser Professional' : 'Communication Tools to Be a Professional'}</h3>
+                <span style="${eduYearStyle}">2018</span>
             </div>
-            <p class="cv-institution">${lang === 'es' ? 'Futbol Club Barcelona - Comunicación digital y contenidos multimedia' : 'FC Barcelona - Digital communication and multimedia content'}</p>
+            <p style="${eduInstStyle}">${lang === 'es' ? 'Futbol Club Barcelona - Comunicación digital y contenidos multimedia' : 'FC Barcelona - Digital communication and multimedia content'}</p>
         </div>
     `;
 
-    // Construir el HTML completo del CV
+    // Construir el HTML completo del CV con estilos inline para PDF
     return `
-        <div class="cv-container">
-            <div class="cv-header">
-                <h1>Màxim Esteban Calvo</h1>
-                <p class="cv-tagline">${lang === 'es' ? 'Profesional Multidisciplinar' : 'Multidisciplinary Professional'}</p>
+        <div class="cv-container" style="font-family: Inter, Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background: #ffffff; color: #1a1a1a; line-height: 1.6;">
+            <div style="text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #0099ff;">
+                <h1 style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin: 0 0 10px 0;">Màxim Esteban Calvo</h1>
+                <p style="font-size: 16px; color: #666666; font-weight: 500; margin: 0;">${lang === 'es' ? 'Profesional Multidisciplinar' : 'Multidisciplinary Professional'}</p>
             </div>
 
-            <div class="cv-contact">
-                <div class="cv-contact-item">
-                    <i class="fas fa-envelope"></i> <a href="mailto:maximestebanc@gmail.com" class="cv-link">maximestebanc@gmail.com</a>
-                </div>
-                <div class="cv-contact-item">
-                    <i class="fas fa-phone"></i> <a href="tel:+34623173898" class="cv-link">+34 623 17 38 98</a>
-                </div>
-                <div class="cv-contact-item">
-                    <i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/maximesteban" class="cv-link">linkedin.com/in/maximesteban</a>
-                </div>
-                <div class="cv-contact-item">
-                    <i class="fab fa-github"></i> <a href="https://github.com/maximesteban" class="cv-link">github.com/maximesteban</a>
-                </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 13px; color: #333333;">📧 maximestebanc@gmail.com</div>
+                <div style="font-size: 13px; color: #333333;">📱 +34 623 17 38 98</div>
+                <div style="font-size: 13px; color: #333333;">💼 linkedin.com/in/maximesteban</div>
+                <div style="font-size: 13px; color: #333333;">💻 github.com/maximesteban</div>
             </div>
 
-            <div class="cv-section">
-                <h2 class="cv-section-title">${lang === 'es' ? 'Perfil Profesional' : 'Professional Profile'}</h2>
-                <p class="cv-text">${profileText}</p>
+            <div style="margin-bottom: 30px;">
+                <h2 style="font-size: 20px; font-weight: 700; color: #0099ff; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0;">${lang === 'es' ? 'Perfil Profesional' : 'Professional Profile'}</h2>
+                <p style="font-size: 14px; color: #333333; line-height: 1.7; margin: 0; text-align: justify;">${profileText}</p>
             </div>
 
-            <div class="cv-section">
-                <h2 class="cv-section-title">${lang === 'es' ? 'Habilidades Clave' : 'Key Skills'}</h2>
-                <div class="cv-skills-grid">
+            <div style="margin-bottom: 30px;">
+                <h2 style="font-size: 20px; font-weight: 700; color: #0099ff; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0;">${lang === 'es' ? 'Habilidades Clave' : 'Key Skills'}</h2>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
                     ${skillsHTML}
                 </div>
             </div>
 
-            <div class="cv-section">
-                <h2 class="cv-section-title">${lang === 'es' ? 'Experiencia Profesional' : 'Professional Experience'}</h2>
+            <div style="margin-bottom: 30px;">
+                <h2 style="font-size: 20px; font-weight: 700; color: #0099ff; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0;">${lang === 'es' ? 'Experiencia Profesional' : 'Professional Experience'}</h2>
                 ${experienceHTML}
             </div>
 
-            <div class="cv-section">
-                <h2 class="cv-section-title">${lang === 'es' ? 'Formación Académica' : 'Education'}</h2>
+            <div style="margin-bottom: 30px;">
+                <h2 style="font-size: 20px; font-weight: 700; color: #0099ff; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0;">${lang === 'es' ? 'Formación Académica' : 'Education'}</h2>
                 ${educationHTML}
             </div>
 
-            <div class="cv-section cv-languages-additional">
-                <div class="cv-column-half">
-                    <h2 class="cv-section-title">${lang === 'es' ? 'Idiomas' : 'Languages'}</h2>
-                    <ul class="cv-language-list">
-                        <li><strong>${lang === 'es' ? 'Español' : 'Spanish'}</strong>: <span>${lang === 'es' ? 'Nativo' : 'Native'}</span></li>
-                        <li><strong>${lang === 'es' ? 'Catalán' : 'Catalan'}</strong>: <span>${lang === 'es' ? 'Nativo' : 'Native'}</span></li>
-                        <li><strong>${lang === 'es' ? 'Inglés' : 'English'}</strong>: <span>${lang === 'es' ? 'Profesional' : 'Professional'}</span></li>
+            <div style="display: flex; gap: 30px; margin-bottom: 30px;">
+                <div style="flex: 1;">
+                    <h2 style="font-size: 20px; font-weight: 700; color: #0099ff; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0;">${lang === 'es' ? 'Idiomas' : 'Languages'}</h2>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="font-size: 13px; color: #333333; padding: 3px 0;"><strong>${lang === 'es' ? 'Español' : 'Spanish'}</strong>: ${lang === 'es' ? 'Nativo' : 'Native'}</li>
+                        <li style="font-size: 13px; color: #333333; padding: 3px 0;"><strong>${lang === 'es' ? 'Catalán' : 'Catalan'}</strong>: ${lang === 'es' ? 'Nativo' : 'Native'}</li>
+                        <li style="font-size: 13px; color: #333333; padding: 3px 0;"><strong>${lang === 'es' ? 'Inglés' : 'English'}</strong>: ${lang === 'es' ? 'Profesional' : 'Professional'}</li>
                     </ul>
                 </div>
-                <div class="cv-column-half">
-                    <h2 class="cv-section-title">${lang === 'es' ? 'Información Adicional' : 'Additional Information'}</h2>
-                    <ul class="cv-additional-list">
-                        <li>${lang === 'es' ? 'Carnet de conducir: B' : 'Driving license: B'}</li>
-                        <li>${lang === 'es' ? 'Disponibilidad para trabajo remoto' : 'Available for remote work'}</li>
-                        <li>${lang === 'es' ? 'Dispuesto a relocalización' : 'Willing to relocate'}</li>
+                <div style="flex: 1;">
+                    <h2 style="font-size: 20px; font-weight: 700; color: #0099ff; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0;">${lang === 'es' ? 'Información Adicional' : 'Additional Information'}</h2>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="font-size: 13px; color: #333333; padding: 3px 0;">• ${lang === 'es' ? 'Carnet de conducir: B' : 'Driving license: B'}</li>
+                        <li style="font-size: 13px; color: #333333; padding: 3px 0;">• ${lang === 'es' ? 'Disponibilidad para trabajo remoto' : 'Available for remote work'}</li>
+                        <li style="font-size: 13px; color: #333333; padding: 3px 0;">• ${lang === 'es' ? 'Dispuesto a relocalización' : 'Willing to relocate'}</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="cv-footer">
-                <p class="cv-footer-text">${lang === 'es' ? 'Generado desde maximesteban.com' : 'Generated from maximesteban.com'}</p>
+            <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eeeeee; text-align: center;">
+                <p style="font-size: 11px; color: #999999; margin: 0;">${lang === 'es' ? 'Generado desde maximesteban.com' : 'Generated from maximesteban.com'}</p>
             </div>
         </div>
     `;

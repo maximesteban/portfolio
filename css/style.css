@@ -944,6 +944,10 @@ body {
     margin: 0 auto;
 }
 
+.contact-info {
+    overflow: visible;
+}
+
 .contact-item {
     display: flex;
     align-items: center;
@@ -973,20 +977,26 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    margin: 0;
+    overflow: visible;
+    white-space: nowrap;
 }
 
 .whatsapp-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
     background: #25D366;
-    color: var(--white);
+    color: white;
     border-radius: 50%;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
 .whatsapp-link:hover {
@@ -996,8 +1006,10 @@ body {
 
 .social-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-top: 2rem;
+    overflow: visible;
 }
 
 .social-link {
@@ -2223,7 +2235,7 @@ body {
 .sports-intro p {
     font-size: 17px;
     line-height: 1.8;
-    color: #1a1a1a;
+    color: #ffffff;
     font-weight: 400;
     margin: 0 0 15px 0;
 }
@@ -2291,7 +2303,7 @@ body {
 .timeline-item li {
     padding: 6px 0 6px 20px;
     position: relative;
-    color: #2c2c2c;
+    color: #ffffff;
     line-height: 1.7;
     font-size: 15px;
 }
@@ -2313,7 +2325,7 @@ body {
 .sports-values h3 {
     text-align: center;
     font-size: 24px;
-    color: #1a1a1a;
+    color: #ffffff;
     margin-bottom: 30px;
     font-weight: 600;
 }
@@ -2569,7 +2581,7 @@ body {
 .milestone-title {
     font-size: 20px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #494949;
     margin-bottom: 8px;
 }
 
@@ -2595,7 +2607,7 @@ body {
 }
 
 .milestone-description {
-    color: #555;
+    color: #ffffff;
     line-height: 1.6;
     margin-bottom: 15px;
     font-size: 15px;
